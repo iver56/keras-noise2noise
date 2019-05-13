@@ -15,6 +15,19 @@ Updates:
 ## Dependencies
 - Keras >= 2.1.2, TensorFlow, NumPy, OpenCV
 
+## Docker
+
+The keras-noise2noise code can be run inside a Docker container on a computer with linux and a
+CUDA-capable GPU. This can be useful for experimenting with training scripts that take long
+time. Docker can also be useful when putting the code into production. Here's how to build a
+keras-noise2noise docker image and then run a docker container:
+
+* `docker build -t keras-noise2noise .`
+* `docker run --rm --runtime nvidia -it -v /path/on/host/noise2noise-data:/mnt/noise2noise-data keras-noise2noise:latest /bin/bash`
+
+This assumes that you have nvidia-docker2 installed on the machine.
+
+
 ## Train Noise2Noise
 
 ### Download Dataset
