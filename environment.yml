@@ -1,0 +1,12 @@
+name: keras-noise2noise
+channels:
+  - defaults
+dependencies:
+  - numpy>=1.14.1,<=1.15.4
+  - pip>=9.0.1,<=19
+  - python=3.6.6
+  - scipy=1.1
+  - pip:
+      - Keras==2.2.4
+      - opencv-python
+      - tensorflow-gpu>=1.8.0,<=1.9.0
