@@ -6,6 +6,7 @@ import cv2
 
 
 def get_noise_model(noise_type="gaussian,0,50"):
+    """Get a callable function that adds noise to an image or returns the image untouched."""
     tokens = noise_type.split(sep=",")
 
     if tokens[0] == "gaussian":
@@ -65,6 +66,7 @@ def get_noise_model(noise_type="gaussian,0,50"):
 
 
 def get_args():
+    """Parse command-line arguments."""
     parser = argparse.ArgumentParser(description="test noise model",
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--image_size", type=int, default=256,
@@ -92,4 +94,5 @@ def main():
 
 
 if __name__ == '__main__':
+    """Run this script to see examples of the generated noise"""
     main()

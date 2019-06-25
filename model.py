@@ -34,18 +34,21 @@ class UpdateAnnealingParameter(Callback):
 
 
 def tf_log10(x):
+    """Calculate log10 using tensorflow operations."""
     numerator = tf.log(x)
     denominator = tf.log(tf.constant(10, dtype=numerator.dtype))
     return numerator / denominator
 
 
 def PSNR(y_true, y_pred):
+    """Calculate peak signal-to-noise ratio."""
     max_pixel = 255.0
     y_pred = K.clip(y_pred, 0.0, 255.0)
     return 10.0 * tf_log10((max_pixel ** 2) / (K.mean(K.square(y_pred - y_true))))
 
 
 def get_model(model_name="srresnet"):
+    """Get an instance of a Keras model."""
     if model_name == "srresnet":
         return get_srresnet_model()
     elif model_name == "unet":
@@ -56,6 +59,7 @@ def get_model(model_name="srresnet"):
 
 # SRResNet
 def get_srresnet_model(input_channel_num=3, feature_dim=64, resunit_num=16):
+    """Get an SRResNet model instance. See also https://arxiv.org/abs/1609.04802"""
     def _residual_block(inputs):
         x = Conv2D(feature_dim, (3, 3), padding="same", kernel_initializer="he_normal")(inputs)
         x = BatchNormalization()(x)
@@ -83,9 +87,9 @@ def get_srresnet_model(input_channel_num=3, feature_dim=64, resunit_num=16):
     return model
 
 
-# UNet: code from https://github.com/pietz/unet-keras
 def get_unet_model(input_channel_num=3, out_ch=3, start_ch=64, depth=4, inc_rate=2., activation='relu',
          dropout=0.5, batchnorm=False, maxpool=True, upconv=True, residual=False):
+    """Get a UNet model instance. Based on code from https://github.com/pietz/unet-keras"""
     def _conv_block(m, dim, acti, bn, res, do=0):
         n = Conv2D(dim, 3, activation=acti, padding='same')(m)
         n = BatchNormalization()(n) if bn else n
@@ -121,6 +125,10 @@ def get_unet_model(input_channel_num=3, out_ch=3, start_ch=64, depth=4, inc_rate
 
 
 def main():
+    """
+    Print a model summary that shows the shape of the ins and outs of the Unet model and
+    its layers, amongst other things.
+    """
     # model = get_model()
     model = get_model("unet")
     model.summary()

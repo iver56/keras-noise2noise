@@ -6,6 +6,10 @@ from keras.utils import Sequence
 
 
 class NoisyImageGenerator(Sequence):
+    """
+    This class is a generator that provides batches of noisy input images and noisy target
+    images to the noise2noise model during training.
+    """
     def __init__(self, image_dir, source_noise_model, target_noise_model, batch_size=32, image_size=64):
         image_suffixes = (".jpeg", ".jpg", ".png", ".bmp")
         self.image_paths = [p for p in Path(image_dir).glob("**/*") if p.suffix.lower() in image_suffixes]
@@ -48,6 +52,9 @@ class NoisyImageGenerator(Sequence):
 
 
 class ValGenerator(Sequence):
+    """
+    This class is a generator that provides validation images for evaluation during training.
+    """
     def __init__(self, image_dir, val_noise_model):
         image_suffixes = (".jpeg", ".jpg", ".png", ".bmp")
         image_paths = [p for p in Path(image_dir).glob("**/*") if p.suffix.lower() in image_suffixes]

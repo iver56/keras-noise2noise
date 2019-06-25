@@ -9,6 +9,10 @@ from noise_model import get_noise_model
 
 
 class Schedule:
+    """
+    Reduce the learning rate over time. This class should be used in the context of a
+    LearningRateScheduler.
+    """
     def __init__(self, nb_epochs, initial_lr):
         self.epochs = nb_epochs
         self.initial_lr = initial_lr
